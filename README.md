@@ -1,82 +1,96 @@
-# Basic Robot Control via ROS with Keyboard Input
-
-## Description
-
-This Python script allows basic teleoperation of a robot using ROS (Robot Operating System).  
-It publishes velocity commands (`geometry_msgs/Twist`) on the `/cmd_vel` topic based on keyboard inputs.
-
-### Features
-
-- Real-time robot control via keyboard:
-  - **z**: move forward
-  - **s**: move backward
-  - **q**: turn left
-  - **d**: turn right
-  - **space**: stop immediately
-- Configurable maximum linear and angular speeds through ROS parameters.
-- Graceful shutdown with safe robot stop on Ctrl+C interrupt.
-- Console feedback showing current velocity commands.
+# Contrôle de base d'un robot via ROS avec le clavier
 
 ---
 
-## Prerequisites
+## Description
 
-- ROS installed and properly configured (tested on ROS Noetic, Melodic)
+Ce script Python permet la téléopération basique d’un robot en utilisant ROS (Robot Operating System).  
+Il publie des commandes de vitesse (`geometry_msgs/Twist`) sur le topic `/cmd_vel` en fonction des touches pressées au clavier.
+
+---
+
+### Fonctionnalités
+
+- Contrôle du robot en temps réel via le clavier :
+  - **z** : avancer
+  - **s** : reculer
+  - **q** : tourner à gauche
+  - **d** : tourner à droite
+  - **espace** : arrêt immédiat
+- Vitesses linéaire et angulaire maximales configurables via des paramètres ROS.
+- Arrêt sécurisé du robot en cas d’interruption Ctrl+C.
+- Retour console affichant les commandes de vitesse en cours.
+
+---
+
+## Prérequis
+
+- ROS installé et correctement configuré (testé sur ROS Noetic, Melodic)
 - Python 3
-- ROS Python packages: `rospy`, `geometry_msgs`
-- Terminal supporting raw keyboard input (Linux/macOS)
+- Paquets Python ROS : `rospy`, `geometry_msgs`
+- Terminal supportant l’entrée clavier en mode brut (Linux/macOS)
 
 ---
 
 ## Installation
 
-1. Place the script in your ROS package `scripts` directory, e.g., `scripts/keyboard_control.py`.
-2. Make it executable:
+1. Placez le script dans le dossier `scripts` de votre package ROS, par exemple `scripts/keyboard_control.py`.
+2. Rendez le script exécutable :
 
 ```bash
 chmod +x keyboard_control.py
 ```
 
-3. Ensure a node subscribing to /cmd_vel is running (e.g., robot driver or simulator).
+3. Assurez-vous qu’un nœud abonné à /cmd_vel est en cours d’exécution (par exemple un pilote de robot ou un simulateur).
 
-## Usage
+---
 
-1. Run the script using:
+## Utilisation
+
+1. Lancez le script avec:
 
 ```bash
 rosrun <your_package_name> keyboard_control.py
 ```
 
-2. Optional ROS parameters
+2. Paramètres ROS optionnels :
 
-~max_linear_speed (default: 0.5) — max linear velocity (m/s)
-~max_angular_speed (default: 1.0) — max angular velocity (rad/s)
+~max_linear_speed (par défaut : 0.5) — vitesse linéaire maximale (m/s)
+~max_angular_speed (par défaut : 1.0) — vitesse angulaire maximale (rad/s)
 
-Example with custom speeds:
+Exemple avec des vitesses personnalisées :
 
 ```bash
 rosrun <your_package_name> keyboard_control.py _max_linear_speed:=1.0 _max_angular_speed:=2.0
 ```
 
-## Keyboard Controls
+---
 
-Key	Action
-z	Move forward
-s	Move backward
-q	Turn left
-d	Turn right
-Space	Stop immediately
-Ctrl+C	Exit program
+## Commandes clavier
 
-## Notes
+Touche	Action
+Touche	Action
+z	Avancer
+s	Reculer
+q	Tourner à gauche
+d	Tourner à droite
+Espace	Arrêt immédiat
+Ctrl+C	Quitter le programme
 
-Designed for Linux/macOS terminals with raw input mode. Windows support requires modification.
-Make sure ROS master is running and the robot or simulator is ready to receive /cmd_vel.
+---
+
+## Remarques
+
+Conçu pour les terminaux Linux/macOS en mode d’entrée brut. Le support pour Windows nécessite des modifications.
+Assurez-vous que le ROS master est en cours d’exécution et que le robot ou simulateur est prêt à recevoir sur /cmd_vel.
+
+---
 
 ## Example Output
 
-Robot teleoperation via keyboard:
-z/s: forward/backward, q/d: turn left/right, space: stop, Ctrl-C to quit
-Command sent: linear=0.30 m/s, angular=0.00 rad/s
-Command sent: linear=0.00 m/s, angular=0.50 rad/s
-Command sent: linear=0.00 m/s, angular=0.00 rad/s
+Exemple de sortie
+Téléopération du robot via le clavier :
+z/s : avancer/reculer, q/d : tourner à gauche/droite, espace : arrêt, Ctrl-C pour quitter
+Commande envoyée : linéaire = 0.30 m/s, angulaire = 0.00 rad/s
+Commande envoyée : linéaire = 0.00 m/s, angulaire = 0.50 rad/s
+Commande envoyée : linéaire = 0.00 m/s, angulaire = 0.00 rad/s
